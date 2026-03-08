@@ -57,7 +57,8 @@ df_logs = gen.get_logs_df()
 if status_filter:
     df_tests_filtered = df_tests[df_tests['Status'].isin(status_filter)]
 else:
-    df_tests_filtered = df_tests
+    df_tests_filtered = pd.DataFrame(columns=df_tests.columns)
+    st.warning("Please select at least one Test Status filter.")
 
 # --- Top Level Metrics ---
 st.subheader("Overview")
@@ -89,7 +90,7 @@ with chart_col1:
     
     # Consistent coloring for status
     color_discrete_map = {
-        'Passed': '#1f77b4', # blue
+        'Passed': '#2ca02c', # green
         'Failed': '#d62728', # red
         'Running': '#ff7f0e', # orange
         'Skipped': '#7f7f7f'  # gray
@@ -171,9 +172,10 @@ with tab2:
     if log_level_filter:
         df_logs_filtered = df_logs[df_logs['Level'].isin(log_level_filter)]
     else:
-        df_logs_filtered = df_logs
+        df_logs_filtered = pd.DataFrame(columns=df_logs.columns)
+        st.warning("Please select at least one Log Level filter.")
         
-    df_logs_filtered = df_logs_filtered.sort_values(by='Timestamp', ascending=False)
+    df_logs_filtered = df_logs_filtered.sort_values(by='Timestamp', ascending=False) if not df_logs_filtered.empty else df_logs_filtered
     
     # Format Timestamp
     df_logs_filtered['Timestamp'] = df_logs_filtered['Timestamp'].dt.strftime('%H:%M:%S.%f').str[:-3]

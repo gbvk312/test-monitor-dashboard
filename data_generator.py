@@ -1,5 +1,4 @@
 import random
-import time
 from datetime import datetime, timedelta
 import pandas as pd
 
@@ -12,6 +11,7 @@ class MockTestGenerator:
         self.tests = []
         self.logs = []
         self.target_num_tests = target_num_tests
+        self.total_tests_generated = target_num_tests
         self._initialize_data()
 
     def _initialize_data(self):
@@ -107,10 +107,19 @@ class MockTestGenerator:
                             'Level': 'INFO',
                             'Message': f"Test completed successfully: {test['Test ID']}"
                         })
+                else:
+                    if random.random() < 0.2:
+                        self.logs.append({
+                            'Timestamp': now,
+                            'Test ID': test['Test ID'],
+                            'Level': 'INFO',
+                            'Message': f"Executing intermediate step for {test['Test ID']}"
+                        })
 
         # Occasionally start a new test
         if random.random() < 0.4:
-            new_id = len(self.tests)
+            new_id = self.total_tests_generated
+            self.total_tests_generated += 1
             suite = random.choice(TEST_SUITES)
             test_id = f"test_{suite}_{new_id:04d}"
             
@@ -129,6 +138,12 @@ class MockTestGenerator:
                 'Level': 'INFO',
                 'Message': f"Starting execution of {test_id}"
             })
+            
+        # Manage memory length
+        if len(self.tests) > 1000:
+            self.tests = self.tests[-1000:]
+        if len(self.logs) > 5000:
+            self.logs = self.logs[-5000:]
 
     def get_test_df(self):
         return pd.DataFrame(self.tests)
