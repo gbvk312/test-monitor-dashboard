@@ -31,11 +31,12 @@ streamlit run app.py
 This project is part of the **Telecom Test Toolkit ecosystem**.
 
 Other tools:
-
-- 5GTestScope
-- Test Monitor Dashboard
-- Regression Flakiness Analyzer
-- Test Report Generator
+- [telecom-test-toolkit](https://github.com/telecom-test-tools/telecom-test-toolkit) (Orchestrator)
+- [testwatch](https://github.com/telecom-test-tools/testwatch)
+- [5g-log-analyzer](https://github.com/telecom-test-tools/5g-log-analyzer)
+- [5gtestscope](https://github.com/telecom-test-tools/5gtestscope)
+- [Regression-Flakiness-Scorer](https://github.com/telecom-test-tools/Regression-Flakiness-Heatmap-Scorer)
+- [test-report-gen](https://github.com/telecom-test-tools/test-report-gen)
 
 🔗 Main project:
-https://github.com/gbvk312/telecom-test-toolkit
+https://github.com/telecom-test-tools/telecom-test-toolkit
