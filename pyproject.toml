@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "test-monitor-dashboard"
+version = "0.1.0"
+description = "Real-time Streamlit dashboard for monitoring test results and KPIs"
+readme = "README.md"
+authors = [
+    {name = "gbvk312"}
+]
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+]
+dependencies = [
+    "streamlit>=1.20",
+    "plotly>=5.0",
+    "pandas>=1.5"
+]
+
+[project.entry-points."ttt.plugins"]
+dashboard = "dashboard_plugin:DashboardPlugin"
+
+[tool.setuptools.py-modules]
+modules = ["dashboard_plugin"]
+
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.9"
+strict = true
+ignore_missing_imports = true
